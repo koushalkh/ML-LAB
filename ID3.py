@@ -2,7 +2,8 @@ import math
 import pandas as pd
 from collections import Counter
 tennis_df = pd.DataFrame.from_csv('tennis.csv')
-
+#Shuffle data OPTIONAL LINE if this line is used accuracy changes each time this code is executed!
+tennis_df = tennis_df.sample(frac=1).reset_index(drop=True)
 class Node:
     def __init__(self, data, attribute = None):
         self.decision_attribute = attribute
@@ -31,7 +32,7 @@ def entropy(a_list ,attribute = 'PlayTennis',  Gain = False):
 def information_gain(data):
     Max_gain = -1
     Max_gain_Attribute = None
-    for attribute in data.keys():
+    for attribute in data.keys():  #Find max information gain
         if attribute == 'PlayTennis':
             continue
         gain = entropy(data)  + entropy(data,attribute,Gain= True)
@@ -43,7 +44,7 @@ def information_gain(data):
 
 def id3(root):
     global nodes 
-    if len(root.data.keys()) == 1:   #end of decision tree.
+    if len(root.data.keys()) == 1 or len(root.data) == 1:   #end of decision tree.
         cnt = Counter(root.data['PlayTennis'])
         root.decision = cnt.most_common(1)[0][0]  # Yes or No
         print("Decision=",root.decision)
@@ -59,12 +60,24 @@ def id3(root):
 def predict(example,root):
     if root.decision != None:
         return root.decision
-    return predict(example , root.child[example[root.decision_attribute]])
+    try:   #if that attribute is not there in that part of tree(id3 trained on the split data)
+        #eg: Temo(cold , hot , mild) but when divided into subtrees data is divided.
+        #some branches have only cold and hot for eg.
+        prediction = predict(example , root.child[example[root.decision_attribute]])
+        return prediction
+    except:
+        return "No"
 
-root = Node(data = tennis_df)
+training_data = tennis_df.iloc[:-4] # all but last four instances
+test_data  = tennis_df.iloc[-4:] # just the last four
+root = Node(data = training_data)
 id3(root)
-print("prediction is",predict(tennis_df.iloc[2] ,root))
-
+print(test_data)
+predictions = [predict(test ,root) for _,test in  test_data.iterrows() ]
+correct = test_data['PlayTennis']
+print("predictions are : {}".format(predictions))
+print("actual:{}".format(test_data['PlayTennis']))
+print("ACCURACY:{}".format(sum([1 for x,y in zip(predictions,correct) if x==y])/(len(predictions)) ))
 ###  OPTIONAL 
 def display_tree(root):
     if root.decision != None:
