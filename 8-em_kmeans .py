@@ -40,22 +40,6 @@ X.columns = ['Sepal_Length','Sepal_Width','Petal_Length','Petal_Width']
 y = pd.DataFrame(iris.target)
 y.columns = ['Targets']
 
-# Set the size of the plot
-plt.figure(figsize=(14,7))
-
-# Create a colormap
-colormap = np.array(['red', 'lime', 'black'])
-
-# Plot Sepal
-plt.subplot(1, 2, 1)
-plt.scatter(X.Sepal_Length,X.Sepal_Width, c=colormap[y.Targets], s=40)
-plt.title('Sepal')
-
-plt.subplot(1, 2, 2)
-plt.scatter(X.Petal_Length,X.Petal_Width, c=colormap[y.Targets], s=40)
-plt.title('Petal')
-plt.show()
-
 print("Actual Target is:\n", iris.target)
 
 # K Means Cluster
@@ -75,7 +59,7 @@ plt.title('Real Classification')
 
 # Plot the Models Classifications
 plt.subplot(1, 2, 2)
-plt.scatter(X.Petal_Length, X.Petal_Width, c=colormap[model.labels_], s=40)
+plt.scatter(X.Petal_Length, X.Petal_Width, c=colormap[rename(model.labels_)], s=40)
 plt.title('K Mean Classification')
 plt.show()
 
@@ -98,7 +82,7 @@ gmm.fit(xs)
 y_cluster_gmm = gmm.predict(xs)
 
 plt.subplot(1, 2, 1)
-plt.scatter(X.Petal_Length, X.Petal_Width, c=colormap[y_cluster_gmm], s=40)
+plt.scatter(X.Petal_Length, X.Petal_Width, c=colormap[rename(y_cluster_gmm)], s=40)
 plt.title('GMM Classification')
 plt.show()
 
