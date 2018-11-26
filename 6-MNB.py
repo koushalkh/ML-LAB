@@ -1,7 +1,7 @@
 from sklearn.datasets import fetch_20newsgroups
-from sklearn.metrics import confusion_matrix
-from sklearn.metrics import classification_report
-import numpy as np
+
+abc=fetch_20newsgroups()
+print(abc["target_names"])
 
 categories=['alt.atheism','soc.religion.christian','comp.graphics','sci.med']
 news_train=fetch_20newsgroups(subset='train',categories=categories,shuffle='true')
