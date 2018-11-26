@@ -61,7 +61,7 @@ def update_parameters(parameters, grads, learning_rate=1.2):
     parameters = {"W1": W1,"b1": b1,"W2": W2,"b2": b2}
     return parameters
 
-def nn_model(X, Y, n_h, num_iterations=10000, print_cost=False):
+def nn_model(X, Y, n_h, num_iterations=10000, print_cost=True):
     n_x = layer_sizes(X, Y)[0]
     n_y = layer_sizes(X, Y)[2]
     parameters = initialize_parameters(n_x, n_h, n_y)
