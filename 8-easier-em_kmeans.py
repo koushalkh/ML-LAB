@@ -17,7 +17,7 @@ X = iris_dataset["data"]
 y=iris_dataset["target"]
 
 # Using the elbow method to find the optimal number of clusters
-# PART 1
+# k-means part
 from sklearn.cluster import KMeans
 
 kmeans = KMeans(n_clusters = 3)
@@ -26,9 +26,9 @@ y_kmeans = kmeans.predict(X)
 plt.scatter(X[:, 0], X[:, 1], c=y_kmeans, s=40, cmap='viridis')
 km=rename(y_kmeans)
 print("Accuracy KM : ",sm.accuracy_score(y,km))
+plt.show()
 
-# PART 2
-# Replace PART 1 with PART 2 for the EM part of the program
+# EM part
 from sklearn.mixture import GaussianMixture
 gmm = GaussianMixture(n_components=3)
 gmm.fit(X)
@@ -38,3 +38,4 @@ plt.scatter(X[:, 0], X[:, 1], c=y_kmeans, s=40, cmap='viridis')
 em=rename(y_kmeans)
 print("Accuracy EM : ",sm.accuracy_score(y,em))
 
+plt.show()
