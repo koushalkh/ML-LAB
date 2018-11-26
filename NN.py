@@ -62,11 +62,8 @@ def update_parameters(parameters, grads, learning_rate=1.2):
     return parameters
 
 def nn_model(X, Y, n_h, num_iterations=10000, print_cost=True):
-    n_x = layer_sizes(X, Y)[0]
-    n_y = layer_sizes(X, Y)[2]
+    n_x, _, n_y = layer_sizes(X, Y)
     parameters = initialize_parameters(n_x, n_h, n_y)
-    W1, b1 = parameters["W1"], parameters["b1"]
-    W2, b2 = parameters["W2"], parameters["b2"]
     for i in range(0, num_iterations):
         A2, cache = forward_propagation(X, parameters)
         cost = compute_cost(A2, Y, parameters)
@@ -86,7 +83,6 @@ X = np.random.randn(2,400)*15
 Y = np.array([(1 if np.sum(a) > 0 else 0) for a in np.rollaxis(X, 1)])
 Y[:70] = 1 #Adding Noice. Remove this line or decrease 70 for more accuracy
 Y = Y.reshape(1,400)
-m = X.shape[1]
 n_x, n_h, n_y = 2 , 4 , 1
 parameters = nn_model(X, Y, n_h, num_iterations=5000)
 predictions = predict(parameters, X)
