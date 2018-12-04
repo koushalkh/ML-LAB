@@ -15,11 +15,8 @@ def rename(s):
 iris_dataset=load_iris()
 X = iris_dataset["data"]
 y=iris_dataset["target"]
-
-# Using the elbow method to find the optimal number of clusters
-# k-means part
+# k-means
 from sklearn.cluster import KMeans
-
 kmeans = KMeans(n_clusters = 3)
 kmeans.fit(X)
 y_kmeans = kmeans.predict(X)
@@ -27,15 +24,12 @@ plt.scatter(X[:, 0], X[:, 1], c=y_kmeans, s=40, cmap='viridis')
 km=rename(y_kmeans)
 print("Accuracy KM : ",sm.accuracy_score(y,km))
 plt.show()
-
 # EM part
 from sklearn.mixture import GaussianMixture
 gmm = GaussianMixture(n_components=3)
 gmm.fit(X)
-
 y_kmeans = gmm.predict(X)
 plt.scatter(X[:, 0], X[:, 1], c=y_kmeans, s=40, cmap='viridis')
 em=rename(y_kmeans)
 print("Accuracy EM : ",sm.accuracy_score(y,em))
-
 plt.show()
