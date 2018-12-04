@@ -6,10 +6,10 @@ All ML lab programs. Ever-changing and becoming "easier" till the day before the
 Usage:
 To download a file using just a command:
 Windows/Ubuntu:
-    curl -O https://raw.githubusercontent.com/koushalkh/ML-LAB/master/1.py
+    curl -O https://raw.githubusercontent.com/koushalkh/ML-LAB/master/prog/1.py
     
 Ubuntu:
-    wget https://raw.githubusercontent.com/koushalkh/ML-LAB/master/1.py
+    wget https://raw.githubusercontent.com/koushalkh/ML-LAB/master/prog/1.py
 #Replace "1" with the program name
 Important:
 Remember the URL (or)
