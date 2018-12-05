@@ -1,14 +1,11 @@
 #Program Written by KOUSHAL K H.
 import numpy as np
-
-
 def forward_propagation(X, W1, b1, W2, b2):
     Z1 = np.dot(W1, X)+b1
     A1 = np.tanh(Z1)
     Z2 = np.dot(W2, A1)+b2
     A2 = 1/(1+np.exp(-Z2))  # Sigmoid
     return A1, A2
-
 
 def nn_model(X, Y, n_h, num_iterations=250, lr=1.2):
     n_x, n_y, m = X.shape[0], Y.shape[0], Y.shape[1]
@@ -38,12 +35,10 @@ def nn_model(X, Y, n_h, num_iterations=250, lr=1.2):
         print("Cost after iteration %i: %f" % (i, cost))
     return W1, b1, W2, b2
 
-
 def predict(X, W1, b1, W2, b2):
     A2 = forward_propagation(X, W1, b1, W2, b2)
     predictions = A2[1] > 0.5
     return predictions
-
 
 #Generating input for NN can replace next 4 lines with any input of your own
 X = np.random.randn(2, 400)*15
